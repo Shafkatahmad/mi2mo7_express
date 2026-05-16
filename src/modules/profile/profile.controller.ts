@@ -88,9 +88,30 @@ const updateProfileInfo = async (req: Request, res: Response) => {
   }
 };
 
+const deleteProfile = async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    const result = await profileService.deleteProfileFromDB(id as string);
+
+    res.status(200).json({
+      success: true,
+      message: "Profile deleted successfully",
+      data: result.rows[0],
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: error,
+    });
+  }
+};
+
 export const profileController = {
   createProfile,
   getAllProfileInfo,
   getProfileInfo,
   updateProfileInfo,
+  deleteProfile,
 };

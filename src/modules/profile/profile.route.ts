@@ -11,4 +11,6 @@ router.get("/:id", profileController.getProfileInfo);
 
 router.put("/:id", profileController.updateProfileInfo);
 
+router.delete("/:id", profileController.deleteProfile);
+
 export const profileRoute = router;
