@@ -1,14 +1,20 @@
 import { pool } from "../../db";
 import type { IUser } from "./user.interface";
+import bcrypt from "bcrypt";
 
 const createUserIntoDB = async (payload: IUser) => {
   const { name, email, password, age } = payload;
+
+  const hashPassword = await bcrypt.hash(password, 10);
+
   const result = await pool.query(
     `
     INSERT INTO users(name, email, password, age) VALUES($1, $2, $3, $4) RETURNING *
     `,
-    [name, email, password, age],
+    [name, email, hashPassword, age],
   );
+
+  delete result.rows[0].password;
 
   return result;
 };
@@ -34,6 +40,9 @@ const getSingleUserFromDB = async (id: string) => {
 
 const updateUserIntoDB = async (payload: IUser, id: string) => {
   const { name, password, age, is_active } = payload;
+
+  const hashPassword = await bcrypt.hash(password, 10);
+
   const result = await pool.query(
     // added COALESCE to not update if that parameter is not given: COALESCE(%1, variableName)
     `
@@ -46,8 +55,10 @@ const updateUserIntoDB = async (payload: IUser, id: string) => {
 
     WHERE id = $5 RETURNING *
     `,
-    [name, password, age, is_active, id],
+    [name, hashPassword, age, is_active, id],
   );
+
+  delete result.rows[0].password;
 
   return result;
 };
