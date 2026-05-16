@@ -29,6 +29,19 @@ const createProfileIntoDB = async (payload: IProfile) => {
   return result;
 };
 
+const getAllProfileInfoFromDB = async (id: string) => {
+  const result = await pool.query(
+    `
+    SELECT * FROM profiles
+    WHERE user_id = $1
+    `,
+    [id],
+  );
+
+  if (result.rows.length === 0) throw new Error("User not found");
+  return result;
+};
+
 const getProfileInfoFromDB = async (
   payload: (keyof IProfile)[],
   id: string,
@@ -54,5 +67,6 @@ const getProfileInfoFromDB = async (
 
 export const profileService = {
   createProfileIntoDB,
+  getAllProfileInfoFromDB,
   getProfileInfoFromDB,
 };

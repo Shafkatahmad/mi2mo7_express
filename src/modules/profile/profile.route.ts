@@ -7,4 +7,6 @@ router.post("/", profileController.createProfile);
 
 router.get("/:id", profileController.getAllProfileInfo);
 
+router.get("/:id", profileController.getProfileInfo);
+
 export const profileRoute = router;
