@@ -64,8 +64,33 @@ const getProfileInfo = async (req: Request, res: Response) => {
   }
 };
 
+const updateProfileInfo = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  // const { fields } = req.body;
+
+  try {
+    const result = await profileService.updateProfileInfoIntoDB(
+      req.body,
+      id as string,
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "Profile info updated successfully",
+      data: result.rows[0],
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: error,
+    });
+  }
+};
+
 export const profileController = {
   createProfile,
   getAllProfileInfo,
   getProfileInfo,
+  updateProfileInfo,
 };

@@ -9,4 +9,6 @@ router.get("/:id", profileController.getAllProfileInfo);
 
 router.get("/:id", profileController.getProfileInfo);
 
+router.put("/:id", profileController.updateProfileInfo);
+
 export const profileRoute = router;

@@ -65,8 +65,33 @@ const getProfileInfoFromDB = async (
   return result;
 };
 
+const updateProfileInfoIntoDB = async (payload: IProfile, id: string) => {
+  // const validFields = payload.filter((field) => allowedFields.includes(field));
+
+  // if (validFields.length === 0) throw new Error("No valid fields requested");
+
+  const { bio, address, phone, gender } = payload;
+
+  const result = await pool.query(
+    `
+    UPDATE profiles
+    SET
+    bio =COALESCE($1, bio),
+    address =COALESCE($2, address),
+    phone = COALESCE($3, phone),
+    gender = COALESCE($4, gender)
+
+    WHERE id = $5 RETURNING *
+    `,
+    [bio, address, phone, gender, id],
+  );
+
+  return result;
+};
+
 export const profileService = {
   createProfileIntoDB,
   getAllProfileInfoFromDB,
   getProfileInfoFromDB,
+  updateProfileInfoIntoDB,
 };
