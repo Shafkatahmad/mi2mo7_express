@@ -1,6 +1,9 @@
 import { pool } from "../../db";
+import type { IProfile } from "./profile.interface";
 
-const createProfileIntoDB = async (payload: any) => {
+const allowedFields: (keyof IProfile)[] = ["bio", "address", "phone", "gender"];
+
+const createProfileIntoDB = async (payload: IProfile) => {
   // console.log(payload);
   const { user_id, bio, address, phone, gender } = payload;
 
@@ -26,6 +29,30 @@ const createProfileIntoDB = async (payload: any) => {
   return result;
 };
 
+const getProfileInfoFromDB = async (
+  payload: (keyof IProfile)[],
+  id: string,
+) => {
+  // const validFields = payload.filter((field) => allowedFields.includes(field));
+  const validFields = payload.filter((field) => allowedFields.includes(field));
+
+  if (validFields.length === 0) throw new Error("No valid fields requested");
+
+  const result = await pool.query(
+    `
+    SELECT ${validFields.join(", ")}
+    FROM profiles
+    WHERE id = $1
+    `,
+    [id],
+  );
+
+  if (result.rows.length === 0) throw new Error("User not found");
+
+  return result;
+};
+
 export const profileService = {
   createProfileIntoDB,
+  getProfileInfoFromDB,
 };
