@@ -6,3 +6,23 @@ Method -> GET - Time -> function now() { [native code] } - URL -> /user
 Method -> GET - Time -> function now() { [native code] } - URL -> /products
 
 Method -> GET - Time -> function now() { [native code] } - URL -> /products
+
+Method -> GET - Time -> 1779082308990 - URL -> /api/profile
+
+Method -> GET - Time -> 1779082368385 - URL -> /api/profile
+
+Method -> GET - Time -> 1779082371786 - URL -> /api/profile
+
+Method -> GET - Time -> 1779082686020 - URL -> /api/users/1
+
+Method -> GET - Time -> 1779085273222 - URL -> /api/users
+
+Method -> GET - Time -> 1779116640642 - URL -> /users
+
+Method -> GET - Time -> 1779116651197 - URL -> /api/users
+
+Method -> GET - Time -> 1779116653898 - URL -> /favicon.ico
+
+Method -> GET - Time -> 1779116741742 - URL -> /api/users
+
+Method -> GET - Time -> 1779117457931 - URL -> /api/users
