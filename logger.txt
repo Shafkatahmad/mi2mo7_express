@@ -1,0 +1,8 @@
+
+Method -> GET - Time -> function now() { [native code] } - URL -> /users
+
+Method -> GET - Time -> function now() { [native code] } - URL -> /user
+
+Method -> GET - Time -> function now() { [native code] } - URL -> /products
+
+Method -> GET - Time -> function now() { [native code] } - URL -> /products

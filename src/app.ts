@@ -6,6 +6,7 @@ import express, {
 import { userRoute } from "./modules/user/user.route";
 import { profileRoute } from "./modules/profile/profile.route";
 import { authRoute } from "./modules/auth/auth.route";
+import fs from "fs";
 
 const app: Application = express();
 
@@ -25,6 +26,15 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/users", userRoute);
 app.use("/api/profile", profileRoute);
 app.use("/api/auth", authRoute);
+
+app.use((req, res, next) => {
+  console.log("Time:", Date.now());
+  const log = `\nMethod -> ${req.method} - Time -> ${Date.now} - URL -> ${req.url}\n`;
+  fs.appendFile("logger.txt", log, (error) => {
+    console.log(error);
+  });
+  next();
+});
 
 // GET all users from database
 
