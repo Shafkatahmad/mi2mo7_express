@@ -43,6 +43,7 @@ const createUser = async (req: Request, res: Response) => {
 
 // GET all users from db
 const getAllUsers = async (req: Request, res: Response) => {
+  console.log("Controller", req.user);
   try {
     // separated the DB query into the user.service module
     const result = await userService.getAllUsersFromDB();
