@@ -6,6 +6,15 @@ const loginUser = async (req: Request, res: Response) => {
     // delagate DB queries into respected service module
     const result = await authService.loginUserIntoDB(req.body);
 
+    // destructuring refresh token from the returned output from auth.service
+    const { refreshToken } = result;
+    // sending cookies in response just like res.status
+    res.cookie("refreshToken", refreshToken, {
+      secure: false, // In Production we will have to send as true
+      httpOnly: true,
+      sameSite: "lax",
+    });
+
     res.status(200).json({
       success: true,
       message: "User login successfully",
