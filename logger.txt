@@ -26,3 +26,7 @@ Method -> GET - Time -> 1779116653898 - URL -> /favicon.ico
 Method -> GET - Time -> 1779116741742 - URL -> /api/users
 
 Method -> GET - Time -> 1779117457931 - URL -> /api/users
+
+Method -> GET - Time -> 1779195688510 - URL -> /api/users
+
+Method -> GET - Time -> 1779195688633 - URL -> /favicon.ico
